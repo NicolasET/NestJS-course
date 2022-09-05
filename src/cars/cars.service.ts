@@ -7,21 +7,11 @@ import { Cars } from './interfaces/cars.interfaces';
 @Injectable()
 export class CarsService {
   private cars: Cars[] = [
-    {
-      id: uuid(),
-      brand: 'Toyota',
-      model: 'Corolla',
-    },
-    {
-      id: uuid(),
-      brand: 'Honda',
-      model: 'Civic',
-    },
-    {
-      id: uuid(),
-      brand: 'Jeep',
-      model: 'Cherokee',
-    },
+    // {
+    //   id: uuid(),
+    //   brand: 'Toyota',
+    //   model: 'Corolla',
+    // },
   ];
 
   findAll() {
@@ -44,15 +34,19 @@ export class CarsService {
   }
 
   update(id: string, updateCarDTO: UpdateCarDTO) {
-    const car = this.findById(id);
+    let carDB = this.findById(id);
     this.cars = this.cars.map((car) => {
       if (car.id === id) {
-        car = { ...car, ...updateCarDTO, id };
-        return car;
+        carDB = { ...car, ...updateCarDTO, id };
+        return carDB;
       }
       return car;
     });
 
-    return car;
+    return carDB;
+  }
+
+  fillData(cars: Cars[]) {
+    this.cars = cars;
   }
 }
